@@ -1,0 +1,296 @@
+0:06yeah
+0:07yeah
+0:08yeah
+0:11yeah
+0:12in this video we are going to be adding is moving to our camera as as you can
+0:18see up here
+0:19maybe it's a little hard but our level is larger than the actual cameras view
+0:23port here
+0:24the line goes down here and here we would like to be able to move the camera
+0:28around here so that we can see the whole level so that we're not bound to make
+0:31levels that has the size of the camera width and height and so we can make a
+0:35slightly less one and we can just move around with the camera to place towers
+0:39on the map
+0:40so to do this we will have to create a new script and the script should be
+0:45called camera movement so go to script folder right-click grade and see our
+0:50script and called camera movement
+0:56when you create that's what we need to write some code and basically this code
+1:03on goes right here is going to be very simple and so maybe you already know how
+1:06to do all this but it will be more complicated later when we need to
+1:10restrict the bounds of the camera so that it can't go off the map but right
+1:14now we're just going to add the functionality so that it can actually
+1:17move in within the and outside the bounds from them as well
+1:21so first of all we need a speed so make a private float called camera speed and
+1:29set it equal to 0 from the get-go because then considered in our inspector
+1:33and and it just it from there
+1:35when you have set to 0 we need to be able to see the inspector so we're going
+1:39to serialize the field as we usually do when we need to access something from
+1:44the inspector immunity
+1:45so the next thing we are going to do is to create a functional private void get
+1:51input and this function here will take the place input and actually move the
+1:57camera around
+1:58so first of all we need to make some if statements yet and this is the reason
+2:04that I'm doing this is because it makes it easier for us to clamp their them
+2:07what's called the position later but for now make an if statement
+2:11so if input that get key down key code to tell you if we press the w button
+2:22well then we say transformed to translate
+2:27it's a free that up x
+2:32camera speed
+2:35x time . Delta time I so
+2:43ok so now we can actually move upwards and the point is that this translate
+2:52transform the translator will move the camera around on the screen based on
+2:57whatever we tell you to do in here inside the parameters
+3:00so we tell it to move upwards when first w button and we multiplied with the
+3:05camera speed and x time to time so time to time is the amount of time that has
+3:11passed since last time update was called and by multiplying by that
+3:16there we will talk account for the time so that the camera will move the same
+3:20speed on all your devices
+3:22so if we run mobile phone that hasn't it that isn't as powerful as computer in
+3:27the home computer as I'm sitting out here at the camera might want faster on
+3:31the computer
+3:32if we don't take the time into account so that's why we are multiplying but
+3:35time that Delta time anyway this was w we actually just copy and paste this
+3:40three times
+3:42underneath and then w.e this empty
+3:50so now we have wasd and on a way of course me to go to the left so we write
+3:59left here on s way to go down and on
+4:04do you need to go to the right so now you actually have the code for moving
+4:09the camera from side to side but right now we're not executing get input
+4:15anywhere but we need this code to be executed search executed we need to go
+4:19to update and right get input
+4:22like so so now we have our get input functionality and he needs that actually
+4:29we can write private here just to just put measure
+4:33so now we have the input function so if we save this and go to unity
+4:40well then this script here actually take the transformed to translate from it and
+4:47move the transform on the object it's sitting on and we wanted to move the
+4:51camera so we take the camera script and move it onto the camera so that it has
+4:56that their script on it and if we just play the game now you will not be able
+5:00to move anywhere and that's because the camera has zero speed
+5:04so to give the camera some speed we can simply just a five for example and then
+5:09your camera is able to move but you can see here you can hold down the key
+5:13you have to let go and click the key and to move around and that's because I
+5:20wrote some from quote i used input to get key down instead of get key
+5:24so the code is only a secure right when we click the button
+5:28use the input that get you down which means this code here for moving the
+5:32camera gets executed right when employed press the key down and then it stops
+5:37so we need to write get key instead
+5:40like so so we can replace all the gate key down with get key
+5:46there we go and then save and then we jump back to unity and remember to
+5:55select the main camera and put a speed if you didn't do it before because you
+5:59can see if i put five speed here and I stopped playing the game that it reverts
+6:03back to zero so i can put five before I play the game then it stays 5 and now i
+6:10can see and hold down the button here to pan around on the on the map here but
+6:18our movement is not restricted at all
+6:21we can simply move all the edges of the of the man everything so we need to do
+6:26something so that we restrict the cameras movement
+6:29so let's try to do that so to make sure that our camera doesn't move over the
+6:34edges of our map we will have to make sure that we can take on screen
+6:38coordinates and translate them into world coordinates so that we know we
+6:41don't pass the edge of the map because if you look here you can see I know it's
+6:47very hard to see but we have our camera
+6:49the white line here and this white line is never supposed to pass the bottom
+6:54right corner here because if you do so then does so then we can actually see
+6:59that blue edge and on around on man we're not it
+7:03we're not interested in that we would like the camera only to go to about here
+7:08something so that it never goes over the edge of the actual level and this will
+7:13be way more precise of course so that it doesn't go over at all on the map
+7:18so to do so we will have to understand how we could translate onto in
+7:22coordinates to world coordinates and you so we will have to use something called
+7:28you to work in newport world . so we can take it . on our viewport and our
+7:34viewport is actually this white thing which year the y 2 square
+7:40so if you put is what we can see
+7:42and we need to take the bottom right here and translate that into a well
+7:46coordinate so we know we don't exceed the living here in India and this is
+7:51just the unit's good preference here i'm just going to show you that if we look
+7:55at this view for space is normalized like this
+7:58the bottom left of the camera is called 0.0 the top right is called 1.1
+8:05so if we look at that will see the bottom left is called 0.0
+8:12it's down here and just move this camera so right there
+8:16and at this one up here is called 1.1 which means that this one down here
+8:21should be called 1.0 because one in 2010 and 1.1 and 1.0 over here
+8:32so this . 1.0 is what we need to get the actual world a coordinate from and we
+8:39need to translate it into a world space coordinate it your back to free and make
+8:43sure that that one doesn't exceed the limits here
+8:46so with that in place
+8:49I hope you understand what we're going to do then we're going to write some
+8:51code
+8:52so open up your camera movement script and in here we need to create a new
+8:57function so make a private void set limits
+9:04and I get my keys correctly and I can't let go and it needs to change in
+9:12something but we will handle that in a second
+9:15first of all we need the world coordinate of the right side of the
+9:20camera here so we go
+9:23one . not zero . zero then we go one out on the x-axis and we still in surround
+9:28the y-axis so it's 1.0 here
+9:31so this is the point we need so we can say vector free
+9:36it's called p equals camera the main . viewport fort to world . we take our
+9:48camera and this actually access is the main camera and we need to take a point
+9:53on the viewport and the viewport . we need is a new litter free called in 1.0
+10:00to go
+10:01so this is the right bottom corner of the screen we translate into a
+10:06coordinate here which is saved in
+10:09it's got it's just going to be p world .
+10:13here we go ok so the next thing we need to do is to get the actual point of the
+10:21next I'll or the the amount of what's called in range we can move and to do
+10:27that we'll have to access the actual tile down here
+10:32we need to get this tile and calculate the distance from here to the camera so
+10:38that we know how much we can actually move and the same goal from - from the
+10:42top here to the bottom because this little tile down here and here the point
+10:49right here is actually our limit right
+10:52we need to get that . and make sure that this corner doesn't go over this corner
+10:57so
+11:01we need a victor free and it's called max tiles this is the position of that
+11:07make style
+11:08so we need an X limit and why limit
+11:12so let's go up here and make a private its limit
+11:16it's max it's called that research is going to be a float and then make a
+11:24private flowed called why mix so this is going to be a limit for the x value and
+11:31this is going to be the limit for the y value
+11:34ok now we have some burgers to store this limited next thing we have to do is
+11:39to say the xmax people to make style . x minus the world . . x so if we take the
+11:51next house position
+11:52- the world . position then we have how much we can move right because we have a
+11:56tile somewhere say out here take that position - this position then we know
+12:02how much we can move and we have to do this implies so why max equal to the
+12:10next I'll y equals world . . of why go and let's save this
+12:19so now we have the functions were doing this but we need to call the set limits
+12:25and set the next I'll so we will do this in a little bit in a smart way later
+12:31when we have added a helper class and everything but for now we just going to
+12:35use do it the easiest way
+12:37it's not the best way to do it and but it's the most ahead and wait for us
+12:44right now to do this thing
+12:46so if we go to the liver manager and then we have to add something to the
+12:52what do you call the crate level function here
+12:55let's find it right here and that means simply going to create a vector free
+13:01called max time you have to set it equal to break free . 0 if you don't do this
+13:12then it's going to complain and tell you that you're trying to use on and sign
+13:15variable so we just have to set it equal to something so down here when we place
+13:22a tile we actually gets the position down here when we set the transformer
+13:28station right here right in the playstyle function so every time we
+13:32place a tile we just return that we can return that position and when we're done
+13:36we always get the latest latest i'll because we start placing our tiles from
+13:42the top down here all waited once like this and the last time child place is
+13:47always this one down here so this is not the best way as i told you to do this we
+13:51will do it in a better way where we only access the style right now we are going
+13:54to set the max time position to equal to the next time we play so every time
+13:58replace a tile the next I'll will be equal to a new position and when we're
+14:03done it will end up with this is precision
+14:07so we can simply just rewrite our next I'll and see terms of its free and then
+14:15we simply need to
+14:17return new tile that transformed the position
+14:22so now it actually returns the position of the towel which is placed
+14:27so we can go up here and say next I'll equals this type of place to mix that
+14:34will now be equal to the towel we just play so now we will have the position of
+14:39the actual child that we are going to and place in the end
+14:44now we need to use this map tile next aisle and give this feat this to the set
+14:49limits function here as you can see here we need the vector free next time
+14:52and so we need to call that and to do so we can actually make a private camera
+15:01and movement really wasn't that him a movement there
+15:11yeah so we have a camera movement up here and we can simply just socialize it
+15:15split it with with this with the childproof caps so we can see the
+15:19inspector and then we can go down here after our fall to peer just after it
+15:26not inside but after my camera movement that set limits and you can see we can
+15:33see set limits here
+15:34that's because i made it private i think so go to camera movement and set limits
+15:40make it public like so and save and jump back to live in manager and right camera
+15:46movement again and set limits and then it needs the position which is max tile
+15:51go
+15:53so now we are executing the camera movements that limits and with we're
+15:57feeding at the next I'll hear them
+16:01yeah ok so this is not enough we need to add some functionality to the camera
+16:08movement and to make this work
+16:11so for example if we save this that right now and a jump to unity and select
+16:17our little manager here take the main camera and move the main camera into the
+16:23camera movement apart here and we start playing the game
+16:27well then we can still move
+16:29freely around here up and down and I can move too much to the left here and and
+16:33if you see then i'll still be able to move over in the right side here so this
+16:40doesn't didn't really change anything
+16:42and why is that well we're not using the limits for anything right now
+16:46so we have to jump back into the script and go to camera movement and down here
+16:52we have to write some coach you limit the movement of the camera so we have to
+16:57use a clamp to claim the movement
+16:59so we can actually say transform that position equals new Victor free so we
+17:07take the position after we have moved the camera up here we take and clamp the
+17:11position by saying math if the clamp and clamping is in the way of making sure
+17:18that value doesn't exceed it
+17:21these are the values we put in here so we can't the position to a new vector
+17:26free where we use transform position X and it shouldn't be able to go below
+17:32zero and it shouldn't be able to go or x max here and then the Y value should be
+17:39mass eff . claimed that a strange form the position that why command 0 , max
+17:51cool and actually it shouldn't be wimax because we're going down
+17:58so actually we should we should actually rename this one click on it press of two
+18:03and ride
+18:04why minimum instead of Max and then we should use it as the minimum value here
+18:10as you can see what I'm riding here it asks for the minimum value which is why
+18:15minimum and 0 because yeah I for that we're going downward so we should switch
+18:21it's not my maximum is not the top with the bottom we are looking at button of
+18:25tile as you remember
+18:26ok so now we have something that sets the limit
+18:31so if we save this
+18:33and jump back into unity then there's still some problems as you can see now
+18:38we can't even see anything here but i am one on there on this front I'll see what
+18:45I can't see anything
+18:46and the reason of that is because the sea position here of the camera is 0 and
+18:56keep setting it to 0 you can even change it to something else
+18:59so we need to make sure that our is the position here is a example - 10 so we
+19:05give the better for a year after your comment - -
+19:09now we set the MC position as - 10 so that we can go here
+19:14play the game and now you can see you imagine because the camera is further
+19:19away from the task force on top of the tiles and then the tires go through the
+19:23camera can't see them so now we just climate in in climbing into this
+19:27position here is that but i'm not able to move quickly around as you can see
+19:33here
+19:34I'm missing one length of the tiles here
+19:38I'm not going to the pitch you have to see but i'm going to this edge and I
+19:42can't move out but that's fine but i can move to for far down and and I and I'm
+19:48fine so over-the-top the left side on the top side is correct but the bottom
+19:52and the right side is wrong
+19:54so we need to do something here and that's inside our little manager when we
+20:01set the limits
+20:02we are missing something we need to use the width of the tiles to make sure that
+20:08we actually use the correct values so we need to say knew Victor free and we need
+20:15to share
+20:16next I'll 2x plus tile size ,
+20:23next I'll . why - tile size
+20:27so these are the values so now we're creating a new vector free as the next
+20:32i'll be using the next position posted
+20:35Plus tile size so we get that extra tile size out and as you can see we were
+20:40going too far down as you can see here we were missing one tile
+20:45so we need to
+20:45that's how sighs to the limits and as you can see here we are going to far
+20:50down so we need to reduce the amount of space we can move down there with the
+20:56height of the size of these tiles
+20:58so , -
+21:02tile size that that - nice to have that why - tile size here so let's try to
+21:08save this and jump back into unity and we run the game
+21:12so if we run the game now
+21:16you could see that the x value here fits perfectly it goes to the edge here and
+21:20it can go up but if you go down you're still able to move too far down to need
+21:25to figure out why we can exceed the limits in the button and I have an idea
+21:28why but let's take a look at it and figure out what's wrong because we're
+21:32going way too far down here so let's try to open them
+21:37the camera movement script find the arrow and I always see the arrow here in
+21:43my set limits function i wrote my style y equals vp that why so it should be
+21:50- year repeat that why and its trying to save it again
+21:54so now it should actually calculate the minimum value of y better
+21:58maybe you already caught this earlier when i was writing this and maybe you're
+22:02screaming at just waiting for me to change it but yeah now I tested it now
+22:06figure out that this was the problem so jump back into unity run your game right
+22:14here and now you shouldn't be able to go to that they're too far here
+22:20so as you can see here now the limits I actually correct
+22:24you can't go over the right edge you can't go over the bottom image and you
+22:27can't go over the top and the and the left side here
+22:31so now we have a camera that can pen and round on our level no matter how large
+22:36it will get and so that's it for this video in the next video will start
+22:40adding some more functionality for and
+22:43the actual gameplay i think but let's see what we're going to do and thank you
+22:48very much for watching and remember that in scope students is a community found
+22:51page and that's why you guys report is very important to me you can support in
+22:56different ways you can follow me on social media pages you can subscribe to
+22:58this channel and and you can also support me by am getting all my projects
+23:04you can do that on the patreon page in the top of the screen right here and if
+23:07you support me you'll just get all projects that have ever created for
+23:10materials and you will also be able to in it private tutoring is that what you
+23:16want to in the bottom you can support me by getting one of my projects as a
+23:19standalone product so and thank you very much for watching
